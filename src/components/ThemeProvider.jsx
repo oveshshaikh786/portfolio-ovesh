@@ -15,7 +15,7 @@ export default function ThemeProvider({ children }) {
   useEffect(() => {
     const saved =
       typeof window !== "undefined" && localStorage.getItem("theme");
-    const initial = saved || "light"; // default = your old theme
+    const initial = saved || "light"; // default
     setTheme(initial);
     document.body.dataset.theme = initial;
   }, []);

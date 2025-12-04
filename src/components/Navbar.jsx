@@ -1,7 +1,7 @@
-// src/components/Navbar.jsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
@@ -9,14 +9,13 @@ export default function Navbar() {
   const [scrollPos, setScrollPos] = useState(0);
   const progressRef = useRef(null);
 
-  // ✅ Simplified nav: removed RESUME + CURRENT FOCUS from main list
+  // ✅ Now these are PAGES, not section IDs
   const links = [
-    { href: "#home", label: "HOME" },
-    { href: "#experience", label: "EXPERIENCE" },
-    { href: "#projects", label: "PROJECTS" },
-    { href: "#skills", label: "SKILLS" },
-    { href: "#about", label: "ABOUT" },
-    { href: "#contact", label: "CONTACT" },
+    { href: "/", label: "HOME" },
+    { href: "/experience", label: "EXPERIENCE" }, // ⬅️ renamed from WORK
+    { href: "/projects", label: "PROJECTS" }, // ⬅️ new
+    { href: "/about", label: "ABOUT" },
+    { href: "/contact", label: "CONTACT" },
   ];
 
   /* ------------------------------
@@ -45,93 +44,33 @@ export default function Navbar() {
   }, [open, scrollPos]);
 
   /* ----------------------------------------
-   * Top progress bar (driven by links order)
+   * Simple page scroll progress
    * ---------------------------------------- */
   useEffect(() => {
-    const HEADER_OFFSET = 84; // keep in sync with your CSS/sticky header height
-
-    const sections = links
-      .map((l) => document.querySelector(l.href))
-      .filter(Boolean);
-
-    const computeDomain = () => {
-      if (!sections.length) return { start: 0, end: 1 };
-
-      const first = sections[0];
-      const last = sections[sections.length - 1];
-
-      const start =
-        first.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
-
-      const lastRect = last.getBoundingClientRect();
-      const lastBottom = lastRect.top + window.pageYOffset + lastRect.height;
-      const end = Math.max(start + 1, lastBottom - window.innerHeight);
-
-      return { start, end };
-    };
-
-    let domain = computeDomain();
-
     const updateProgress = () => {
       if (!progressRef.current) return;
-      const y = window.pageYOffset;
-      const pct = Math.min(
-        100,
-        Math.max(0, ((y - domain.start) / (domain.end - domain.start)) * 100)
-      );
+
+      const doc = document.documentElement;
+      const scrollTop = window.pageYOffset || doc.scrollTop;
+      const scrollHeight = doc.scrollHeight - window.innerHeight;
+
+      const pct =
+        scrollHeight > 0
+          ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100))
+          : 0;
+
       progressRef.current.style.width = `${pct}%`;
     };
 
-    const onResize = () => {
-      domain = computeDomain();
-      updateProgress();
-    };
-
-    const onLoad = () => {
-      domain = computeDomain();
-      updateProgress();
-    };
-
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", onResize);
-    window.addEventListener("load", onLoad);
-
-    domain = computeDomain();
     updateProgress();
-
-    const ro = new ResizeObserver(() => {
-      domain = computeDomain();
-      updateProgress();
-    });
-    sections.forEach((el) => ro.observe(el));
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
 
     return () => {
       window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("load", onLoad);
-      ro.disconnect();
+      window.removeEventListener("resize", updateProgress);
     };
-  }, [links]);
-
-  /* ----------------------------------------
-   * Smooth scroll with header offset
-   * ---------------------------------------- */
-  const handleLinkClick = (e) => {
-    e.preventDefault();
-    const href = e.currentTarget.getAttribute("href");
-
-    setOpen(false);
-
-    setTimeout(() => {
-      const element = document.querySelector(href);
-      if (element) {
-        const headerOffset = 84;
-        const rect = element.getBoundingClientRect();
-        const offsetTop = rect.top + window.pageYOffset - headerOffset;
-        window.scrollTo({ top: offsetTop, behavior: "smooth" });
-      }
-    }, 350);
-  };
+  }, []);
 
   return (
     <>
@@ -149,9 +88,9 @@ export default function Navbar() {
           <ul className={`navlinks ${open ? "open" : ""}`} id="primary-nav">
             {links.map((l) => (
               <li key={l.href}>
-                <a href={l.href} onClick={handleLinkClick}>
+                <Link href={l.href} onClick={() => setOpen(false)}>
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -160,11 +99,12 @@ export default function Navbar() {
           <div className="nav-actions">
             <ThemeToggle />
 
-            {/* Resume as a button*/}
+            {/* Resume button now opens PDF directly */}
             <a
-              href="#resume"
+              href="/resume/Ovesh_Shaikh_Resume.pdf"
               className="nav-resume-btn"
-              onClick={handleLinkClick}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Resume
             </a>

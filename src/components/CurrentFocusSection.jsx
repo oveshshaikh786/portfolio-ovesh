@@ -28,7 +28,6 @@ function BadgeModal({ badge, onClose }) {
         animation: "fadeIn 0.3s ease",
       }}
     >
-      {/* Backdrop uses theme var */}
       <div
         style={{
           position: "absolute",
@@ -38,7 +37,6 @@ function BadgeModal({ badge, onClose }) {
         }}
       />
 
-      {/* Content uses theme vars */}
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -214,7 +212,7 @@ function BadgesSection({ badges }) {
             backgroundClip: "text",
           }}
         >
-          Badges & Achievements ({badges.length})
+          Badges &amp; Achievements ({badges.length})
         </h4>
 
         <div
@@ -420,7 +418,6 @@ export default function CurrentFocusSection() {
     };
   }, [activeTab]);
 
-  // you can replace these with real dates you’ve earned
   const badges = [
     {
       name: "50 Days",
@@ -446,341 +443,345 @@ export default function CurrentFocusSection() {
   ];
 
   return (
-    <section
-      id="current-focus"
-      className="section"
-      style={{ background: "var(--bg-skills)" }}
-    >
-      <h2>What I'm Working On</h2>
-      <p style={{ marginBottom: 30 }}>
-        Continuous learning and building, here’s what’s keeping me sharp right
-        now.
-      </p>
+    <section id="current-focus" className="home-section home-section-alt">
+      <div className="home-section-inner">
+        <header className="home-section-header">
+          <div>
+            <div className="home-section-kicker">Now</div>
+            <h2 className="home-section-title">What I&apos;m Working On</h2>
+          </div>
+        </header>
 
-      {/* Tabs */}
-      <div className="btn-group" style={{ justifyContent: "center" }}>
-        <button
-          className={`btn ${activeTab === "leetcode" ? "active" : ""}`}
-          onClick={() => setActiveTab("leetcode")}
-        >
-          <i className="fa-solid fa-code" /> LeetCode Journey
-        </button>
-        <button
-          className={`btn ${activeTab === "projects" ? "active" : ""}`}
-          onClick={() => setActiveTab("projects")}
-        >
-          <i className="fa-solid fa-laptop-code" /> Current Projects
-        </button>
-      </div>
+        <p className="home-section-description">
+          Continuous learning and building—this is what&apos;s keeping me sharp
+          right now.
+        </p>
 
-      <div style={{ maxWidth: 1000, margin: "40px auto 0" }}>
-        {/* LeetCode */}
-        {activeTab === "leetcode" && (
-          <div
-            className="focus-content"
-            style={{ animation: "fadeInUp .5s ease" }}
+        {/* Tabs */}
+        <div className="btn-group" style={{ justifyContent: "center" }}>
+          <button
+            className={`btn ${activeTab === "leetcode" ? "active" : ""}`}
+            onClick={() => setActiveTab("leetcode")}
           >
-            {loading ? (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: 60,
-                  color: "var(--text-muted)",
-                }}
-              >
-                <i
-                  className="fa-solid fa-spinner fa-spin"
-                  style={{ fontSize: "3rem", color: "var(--brand)" }}
-                />
-                <p style={{ marginTop: 16 }}>Loading LeetCode stats...</p>
-              </div>
-            ) : err ? (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: 24,
-                  color: "var(--text)",
-                }}
-              >
-                <p>
-                  Couldn’t load stats:{" "}
-                  <span style={{ color: "var(--brand)" }}>{err}</span>
-                </p>
-              </div>
-            ) : (
-              <>
-                {/* KPI tiles */}
+            <i className="fa-solid fa-code" /> LeetCode Journey
+          </button>
+          <button
+            className={`btn ${activeTab === "projects" ? "active" : ""}`}
+            onClick={() => setActiveTab("projects")}
+          >
+            <i className="fa-solid fa-laptop-code" /> Current Projects
+          </button>
+        </div>
+
+        <div style={{ maxWidth: 1000, margin: "40px auto 0" }}>
+          {/* LeetCode */}
+          {activeTab === "leetcode" && (
+            <div
+              className="focus-content"
+              style={{ animation: "fadeInUp .5s ease" }}
+            >
+              {loading ? (
                 <div
                   style={{
-                    background:
-                      "linear-gradient(135deg,rgba(26,50,70,.6),rgba(30,40,50,.8))",
-                    padding: 32,
-                    borderRadius: 20,
-                    marginBottom: 32,
-                    border: "1px solid rgba(255,255,255,.1)",
-                    backdropFilter: "blur(10px)",
+                    textAlign: "center",
+                    padding: 60,
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  <i
+                    className="fa-solid fa-spinner fa-spin"
+                    style={{ fontSize: "3rem", color: "var(--brand)" }}
+                  />
+                  <p style={{ marginTop: 16 }}>Loading LeetCode stats...</p>
+                </div>
+              ) : err ? (
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: 24,
+                    color: "var(--text)",
+                  }}
+                >
+                  <p>
+                    Couldn’t load stats:{" "}
+                    <span style={{ color: "var(--brand)" }}>{err}</span>
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {/* KPI tiles */}
+                  <div
+                    style={{
+                      background:
+                        "linear-gradient(135deg,rgba(26,50,70,.6),rgba(30,40,50,.8))",
+                      padding: 32,
+                      borderRadius: 20,
+                      marginBottom: 32,
+                      border: "1px solid rgba(255,255,255,.1)",
+                      backdropFilter: "blur(10px)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns:
+                          "repeat(auto-fit,minmax(140px,1fr))",
+                        gap: 20,
+                      }}
+                    >
+                      <Tile
+                        bg="linear-gradient(135deg,#FFA116,#FF6B00)"
+                        shadow="rgba(255,161,22,.3)"
+                        label="Problems Solved"
+                        value={leetcode.totalSolved}
+                      />
+                      <Tile
+                        bg="linear-gradient(135deg,#00E396,#00A67E)"
+                        shadow="rgba(0,227,150,.3)"
+                        label="Easy"
+                        value={leetcode.easySolved}
+                      />
+                      <Tile
+                        bg="linear-gradient(135deg,#FFA116,#FF8042)"
+                        shadow="rgba(255,161,22,.3)"
+                        label="Medium"
+                        value={leetcode.mediumSolved}
+                      />
+                      <Tile
+                        bg="linear-gradient(135deg,#FF4560,#C42E3E)"
+                        shadow="rgba(255,69,96,.3)"
+                        label="Hard"
+                        value={leetcode.hardSolved}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Progress */}
+                  <div
+                    style={{
+                      background: "var(--bg-card)",
+                      padding: 32,
+                      borderRadius: 16,
+                      border: "1px solid var(--border-soft)",
+                    }}
+                  >
+                    <h4
+                      style={{
+                        color: "var(--text)",
+                        marginBottom: 24,
+                        fontSize: "1.2rem",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                      }}
+                    >
+                      <i className="fa-solid fa-chart-line" />
+                      Problem Solving Progress
+                    </h4>
+
+                    <BarRow
+                      label="Easy"
+                      solved={leetcode.easySolved}
+                      total={leetcode.easyQuestions}
+                      grad="linear-gradient(90deg,#00E396,#00A67E)"
+                    />
+                    <BarRow
+                      label="Medium"
+                      solved={leetcode.mediumSolved}
+                      total={leetcode.mediumQuestions}
+                      grad="linear-gradient(90deg,#FFA116,#FF8042)"
+                    />
+                    <BarRow
+                      label="Hard"
+                      solved={leetcode.hardSolved}
+                      total={leetcode.hardQuestions}
+                      grad="linear-gradient(90deg,#FF4560,#C42E3E)"
+                    />
+                  </div>
+
+                  {/* Badges */}
+                  <BadgesSection badges={badges} />
+
+                  {/* CTA */}
+                  <div
+                    style={{
+                      background:
+                        "linear-gradient(135deg,rgba(0,124,237,.1),rgba(63,169,255,.1))",
+                      padding: "40px 32px",
+                      borderRadius: 20,
+                      textAlign: "center",
+                      border: "2px solid var(--brand)",
+                    }}
+                  >
+                    <h4
+                      style={{
+                        fontSize: "1.8rem",
+                        fontWeight: 700,
+                        color: "var(--text)",
+                        marginBottom: 12,
+                      }}
+                    >
+                      Visit My LeetCode Profile
+                    </h4>
+                    <p
+                      style={{
+                        color: "var(--text-muted)",
+                        marginBottom: 24,
+                        fontSize: "1.05rem",
+                      }}
+                    >
+                      Check out my complete problem-solving journey and progress
+                    </p>
+                    <a
+                      href={`https://leetcode.com/${USERNAME}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "16px 32px",
+                        background: "linear-gradient(135deg,#FFA116,#FF6B00)",
+                        color: "#fff",
+                        borderRadius: 999,
+                        fontSize: "1.1rem",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        boxShadow: "0 8px 24px rgba(255,161,22,.4)",
+                        transition: "all .3s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-3px)";
+                        e.currentTarget.style.boxShadow =
+                          "0 12px 32px rgba(255,161,22,.5)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow =
+                          "0 8px 24px rgba(255,161,22,.4)";
+                      }}
+                    >
+                      <i className="fa-solid fa-rocket" />
+                      View Profile
+                      <i className="fa-solid fa-arrow-right" />
+                    </a>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* Current Projects */}
+          {activeTab === "projects" && (
+            <div
+              className="focus-content"
+              style={{ animation: "fadeInUp .5s ease" }}
+            >
+              <div
+                style={{
+                  background: "var(--bg-card)",
+                  padding: 40,
+                  borderRadius: 20,
+                  border: "1px solid var(--border-soft)",
+                }}
+              >
+                <h3
+                  style={{
+                    color: "var(--text)",
+                    textAlign: "center",
+                    marginBottom: 30,
+                    fontSize: "1.8rem",
+                  }}
+                >
+                  Current Projects 🚧
+                </h3>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: 24,
                   }}
                 >
                   <div
+                    className="current-project-card"
                     style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))",
-                      gap: 20,
-                    }}
-                  >
-                    <Tile
-                      bg="linear-gradient(135deg,#FFA116,#FF6B00)"
-                      shadow="rgba(255,161,22,.3)"
-                      label="Problems Solved"
-                      value={leetcode.totalSolved}
-                    />
-                    <Tile
-                      bg="linear-gradient(135deg,#00E396,#00A67E)"
-                      shadow="rgba(0,227,150,.3)"
-                      label="Easy"
-                      value={leetcode.easySolved}
-                    />
-                    <Tile
-                      bg="linear-gradient(135deg,#FFA116,#FF8042)"
-                      shadow="rgba(255,161,22,.3)"
-                      label="Medium"
-                      value={leetcode.mediumSolved}
-                    />
-                    <Tile
-                      bg="linear-gradient(135deg,#FF4560,#C42E3E)"
-                      shadow="rgba(255,69,96,.3)"
-                      label="Hard"
-                      value={leetcode.hardSolved}
-                    />
-                  </div>
-                </div>
-
-                {/* Progress */}
-                <div
-                  style={{
-                    background: "var(--bg-card)",
-                    padding: 32,
-                    borderRadius: 16,
-                    border: "1px solid var(--border-soft)",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "var(--text)",
-                      marginBottom: 24,
-                      fontSize: "1.2rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                    }}
-                  >
-                    <i className="fa-solid fa-chart-line" />
-                    Problem Solving Progress
-                  </h4>
-
-                  <BarRow
-                    label="Easy"
-                    solved={leetcode.easySolved}
-                    total={leetcode.easyQuestions}
-                    grad="linear-gradient(90deg,#00E396,#00A67E)"
-                  />
-                  <BarRow
-                    label="Medium"
-                    solved={leetcode.mediumSolved}
-                    total={leetcode.mediumQuestions}
-                    grad="linear-gradient(90deg,#FFA116,#FF8042)"
-                  />
-                  <BarRow
-                    label="Hard"
-                    solved={leetcode.hardSolved}
-                    total={leetcode.hardQuestions}
-                    grad="linear-gradient(90deg,#FF4560,#C42E3E)"
-                  />
-                </div>
-
-                {/* Badges restored here */}
-                <BadgesSection badges={badges} />
-
-                {/* CTA */}
-                <div
-                  style={{
-                    background:
-                      "linear-gradient(135deg,rgba(0,124,237,.1),rgba(63,169,255,.1))",
-                    padding: "40px 32px",
-                    borderRadius: 20,
-                    textAlign: "center",
-                    border: "2px solid var(--brand)",
-                  }}
-                >
-                  <h4
-                    style={{
-                      fontSize: "1.8rem",
-                      fontWeight: 700,
-                      color: "var(--text)",
-                      marginBottom: 12,
-                    }}
-                  >
-                    Visit My LeetCode Profile
-                  </h4>
-                  <p
-                    style={{
-                      color: "var(--text-muted)",
-                      marginBottom: 24,
-                      fontSize: "1.05rem",
-                    }}
-                  >
-                    Check out my complete problem-solving journey and progress
-                  </p>
-                  <a
-                    href={`https://leetcode.com/${USERNAME}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 10,
-                      padding: "16px 32px",
-                      background: "linear-gradient(135deg,#FFA116,#FF6B00)",
-                      color: "#fff",
-                      borderRadius: 999,
-                      fontSize: "1.1rem",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      boxShadow: "0 8px 24px rgba(255,161,22,.4)",
-                      transition: "all .3s ease",
+                      background: "var(--bg-card)",
+                      border: "1px solid var(--border-soft)",
+                      borderRadius: 16,
+                      padding: 24,
+                      textAlign: "center",
+                      transition:
+                        "transform .3s ease, box-shadow .3s ease, border-color .3s ease",
+                      cursor: "pointer",
+                      boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-3px)";
+                      e.currentTarget.style.transform = "translateY(-8px)";
                       e.currentTarget.style.boxShadow =
-                        "0 12px 32px rgba(255,161,22,.5)";
+                        "0 16px 32px rgba(0, 124, 237, 0.15)";
+                      e.currentTarget.style.borderColor = "var(--brand)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = "translateY(0)";
                       e.currentTarget.style.boxShadow =
-                        "0 8px 24px rgba(255,161,22,.4)";
+                        "0 6px 18px rgba(0,0,0,0.06)";
+                      e.currentTarget.style.borderColor = "var(--border-soft)";
                     }}
                   >
-                    <i className="fa-solid fa-rocket" />
-                    View Profile
-                    <i className="fa-solid fa-arrow-right" />
-                  </a>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {/* -- Current Projects Section -- */}
-        {activeTab === "projects" && (
-          <div
-            className="focus-content"
-            style={{ animation: "fadeInUp .5s ease" }}
-          >
-            <div
-              style={{
-                background: "var(--bg-card)",
-                padding: 40,
-                borderRadius: 20,
-                border: "1px solid var(--border-soft)",
-              }}
-            >
-              <h3
-                style={{
-                  color: "var(--text)",
-                  textAlign: "center",
-                  marginBottom: 30,
-                  fontSize: "1.8rem",
-                }}
-              >
-                Current Projects 🚧
-              </h3>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                  gap: 24,
-                }}
-              >
-                {/* Project 1 */}
-                <div
-                  className="current-project-card"
-                  style={{
-                    background: "var(--bg-card)",
-                    border: "1px solid var(--border-soft)",
-                    borderRadius: 16,
-                    padding: 24,
-                    textAlign: "center",
-                    transition:
-                      "transform .3s ease, box-shadow .3s ease, border-color .3s ease",
-                    cursor: "pointer",
-                    boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-8px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 16px 32px rgba(0, 124, 237, 0.15)";
-                    e.currentTarget.style.borderColor = "var(--brand)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow =
-                      "0 6px 18px rgba(0,0,0,0.06)";
-                    e.currentTarget.style.borderColor = "var(--border-soft)";
-                  }}
-                >
-                  <i
-                    className="fa-solid fa-briefcase"
-                    style={{
-                      fontSize: "2rem",
-                      color: "var(--brand)",
-                      marginBottom: 12,
-                    }}
-                  />
-                  <h4 style={{ color: "var(--text)" }}>
-                    InboxGenie - Smart Email Assistant building using Spring
-                    Boot + Spring AI
-                  </h4>
-                  <p
-                    style={{
-                      color: "var(--text-muted)",
-                      margin: "10px 0 16px",
-                    }}
-                  >
-                    It’s short, brandable, and works beautifully for a browser
-                    extension + AI tool. Granting email wishes, one reply at a
-                    time.
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 10,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <a
-                      href="https://github.com/oveshshaikh786/job-application-tracker"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
+                    <i
+                      className="fa-solid fa-briefcase"
+                      style={{
+                        fontSize: "2rem",
+                        color: "var(--brand)",
+                        marginBottom: 12,
+                      }}
+                    />
+                    <h4 style={{ color: "var(--text)" }}>
+                      InboxGenie - Smart Email Assistant building using Spring
+                      Boot + Spring AI
+                    </h4>
+                    <p
+                      style={{
+                        color: "var(--text-muted)",
+                        margin: "10px 0 16px",
+                      }}
                     >
-                      <i className="fa-brands fa-github" /> Code
-                    </a>
-                    <a
-                      href="#"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
+                      It’s short, brandable, and works beautifully for a browser
+                      extension + AI tool. Granting email wishes, one reply at a
+                      time.
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        justifyContent: "center",
+                      }}
                     >
-                      <i className="fa-solid fa-arrow-up-right-from-square" />{" "}
-                      Live
-                    </a>
+                      <a
+                        href="https://github.com/oveshshaikh786/job-application-tracker"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                      >
+                        <i className="fa-brands fa-github" /> Code
+                      </a>
+                      <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                      >
+                        <i className="fa-solid fa-arrow-up-right-from-square" />{" "}
+                        Live
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );

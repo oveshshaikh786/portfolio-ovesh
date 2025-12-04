@@ -1,5 +1,9 @@
 // src/app/layout.js
+
 import ThemeProvider from "../components/ThemeProvider";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import ScrollFeatures from "../components/ScrollFeatures";
 import "./style.css";
 
 export const metadata = {
@@ -23,7 +27,14 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ScrollFeatures />
+          <div className="app-shell">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

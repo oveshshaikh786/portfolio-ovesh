@@ -11,8 +11,7 @@ function Thumb({ src, alt }) {
         alt={alt}
         loading="lazy"
         onError={(e) => {
-          // fallback to a generic placeholder if the image path is wrong/missing
-          e.currentTarget.src = "/images/image.png";
+          e.currentTarget.src = "/images/projects/fallback.jpg";
         }}
       />
     </div>
@@ -45,138 +44,150 @@ export default function ProjectsSection() {
   }, []);
 
   return (
-    <section id="projects">
-      <h2 className="projects-title fade-in-up">MY PROJECTS</h2>
+    <section id="projects" className="home-section">
+      <div className="home-section-inner">
+        <header className="home-section-header">
+          <div>
+            <div className="home-section-kicker">Projects</div>
+            <h2 className="home-section-title">Things I&apos;ve built</h2>
+          </div>
+        </header>
 
-      <div className="projects-container fade-in-up delay-1">
-        {/*1. */}
-        <article className="project-card fade-in-up">
-          <Thumb
-            src="/images/projects/train-ticket-booking-logo.jpg"
-            alt="Train Ticket Booking System"
-          />
-          <h3>Train Ticket Booking System</h3>
-          <p>
-            Full-stack train booking platform with containerized backend
-            architecture for scalability and performance.
-          </p>
-          <div className="project-tags">
-            <span>Java</span>
-            <span>Spring Boot</span>
-            <span>React</span>
-            <span>Docker</span>
-          </div>
-          <div className="project-actions">
-            <a
-              className="btn"
-              href="https://github.com/oveshshaikh786/Train-ticket-booking"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open Train Ticket Booking System on GitHub"
-            >
-              <i className="fa-brands fa-github" /> View Code
-            </a>
-          </div>
-        </article>
-        {/*2. */}
-        <article className="project-card fade-in-up">
-          <Thumb
-            src="/images/projects/contoso-dw-logo.jpg"
-            alt="Contoso Retail Data Warehouse"
-          />
-          <h3>Contoso Retail DW</h3>
-          <p>
-            Enterprise data warehouse solution with OLAP cubes for advanced
-            retail analytics and business intelligence.
-          </p>
-          <div className="project-tags">
-            <span>OLAP</span>
-            <span>MDX</span>
-            <span>Analytics</span>
-          </div>
-          <div className="project-actions">
-            <a
-              className="btn"
-              href="https://github.com/oveshshaikh786/contoso-data-analysis-dw"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open Contoso Retail DW Data Analysis on GitHub"
-            >
-              <i className="fa-brands fa-github" /> View Code
-            </a>
-          </div>
-        </article>
-        {/*3. */}
-        <article className="project-card fade-in-up">
-          <Thumb
-            src="/images/projects/twitter-clone-1.png"
-            alt="Twitter Clone Screenshot"
-          />
-          <h3>Twitter Clone</h3>
-          <p>
-            Feature-rich social media platform with real-time updates, JWT
-            authentication, and modern UI/UX design.
-          </p>
-          <div className="project-tags">
-            <span>Next.js</span>
-            <span>React</span>
-            <span>JWT</span>
-          </div>
-          <div className="project-actions">
-            <a
-              className="btn"
-              href="https://twitter-clone-next-js-app-two.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open Twitter Clone live demo"
-            >
-              <i className="fa-solid fa-arrow-up-right-from-square" /> Live Demo
-            </a>
+        <p className="home-section-description">
+          A mix of backend-heavy systems, data projects, and frontend work where
+          I focus on clean UX, performance, and real-world flows.
+        </p>
 
-            <a
-              className="btn"
-              href="https://github.com/oveshshaikh786/Twitter-Clone-Next.js-app"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open Twitter Clone on GitHub"
-            >
-              <i className="fa-brands fa-github" /> View Code
-            </a>
-          </div>
-        </article>
+        <div className="projects-container fade-in-up delay-1">
+          {/* 1. Train Ticket Booking System */}
+          <article className="project-card fade-in-up">
+            <Thumb
+              src="/images/projects/train-ticket-booking-logo.jpg"
+              alt="Train Ticket Booking System"
+            />
+            <h3>Train Ticket Booking System</h3>
+            <p>
+              Java-based train booking platform with search, booking, and
+              cancellation flows, using JSON persistence and clean service
+              layering to mimic a real-world backend.
+            </p>
+            <div className="project-tags">
+              <span>Java</span>
+              <span>OOP</span>
+              <span>CLI / Backend</span>
+            </div>
+            <div className="project-actions">
+              <a
+                className="btn"
+                href="https://github.com/oveshshaikh786/Train-ticket-booking"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Train Ticket Booking System on GitHub"
+              >
+                <i className="fa-brands fa-github" /> View Code
+              </a>
+            </div>
+          </article>
 
-        {/*4. */}
-        <article className="project-card fade-in-up">
-          <div className="project-thumb placeholder-thumb">
-            <span>BUILDING IN PROGRESS</span>
-          </div>
+          {/* 2. Contoso Retail DW */}
+          <article className="project-card fade-in-up">
+            <Thumb
+              src="/images/projects/contoso-dw-logo.jpg"
+              alt="Contoso Retail Data Warehouse"
+            />
+            <h3>Contoso Retail DW</h3>
+            <p>
+              Enterprise-style data warehouse for retail analytics using OLAP
+              cube design and MDX queries to answer business questions on sales,
+              customers, and product performance.
+            </p>
+            <div className="project-tags">
+              <span>SQL Server</span>
+              <span>OLAP</span>
+              <span>MDX</span>
+              <span>Analytics</span>
+            </div>
+            <div className="project-actions">
+              <a
+                className="btn"
+                href="https://github.com/oveshshaikh786/contoso-data-analysis-dw"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Contoso Retail DW Data Analysis on GitHub"
+              >
+                <i className="fa-brands fa-github" /> View Code
+              </a>
+            </div>
+          </article>
 
-          <h3>InboxGenie.ai</h3>
-          <p>
-            AI-powered email assistant currently under development. Features
-            include smart replies, thread summaries, and automated action-item
-            extraction.
-          </p>
+          {/* 3. Twitter Clone (Next.js) */}
+          <article className="project-card fade-in-up">
+            <Thumb
+              src="/images/projects/twitter-clone-1.png"
+              alt="Twitter Clone Screenshot"
+            />
+            <h3>Twitter Clone</h3>
+            <p>
+              Full-featured social feed with post creation, likes, and auth,
+              built with Next.js and a modern UI focused on responsiveness and
+              clean UX.
+            </p>
+            <div className="project-tags">
+              <span>Next.js</span>
+              <span>React</span>
+              <span>Tailwind CSS</span>
+            </div>
+            <div className="project-actions">
+              <a
+                className="btn"
+                href="https://twitter-clone-next-js-app-two.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Twitter Clone live demo"
+              >
+                <i className="fa-solid fa-arrow-up-right-from-square" /> Live
+                Demo
+              </a>
+              <a
+                className="btn"
+                href="https://github.com/oveshshaikh786/twitter-clone-next-js-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Twitter Clone code on GitHub"
+              >
+                <i className="fa-brands fa-github" /> View Code
+              </a>
+            </div>
+          </article>
 
-          <div className="project-tags">
-            <span>Spring Boot</span>
-            <span>Spring AI</span>
-            <span>OAuth2</span>
-            <span>Gmail / Outlook API</span>
-          </div>
-
-          <div className="project-actions">
-            <a
-              className="btn"
-              href="https://github.com/oveshshaikh786"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="InboxGenie.ai repository (coming soon)"
-            >
-              <i className="fa-brands fa-github" /> View Code (Soon)
-            </a>
-          </div>
-        </article>
+          {/* 4. InboxGenie.ai – In Progress */}
+          <article className="project-card fade-in-up">
+            <Thumb src="/images/projects/inboxgenie.png" alt="InboxGenie.ai" />
+            <h3>InboxGenie.ai (In Progress)</h3>
+            <p>
+              Smart email assistant that will draft replies, summarize threads,
+              and extract action items directly from your inbox, powered by
+              Spring Boot and Spring AI.
+            </p>
+            <div className="project-tags">
+              <span>Spring Boot</span>
+              <span>Spring AI</span>
+              <span>OAuth2</span>
+              <span>Gmail / Outlook API</span>
+            </div>
+            <div className="project-actions">
+              <span
+                style={{
+                  fontSize: "0.9rem",
+                  color: "var(--text-muted)",
+                  fontWeight: 500,
+                }}
+              >
+                🚧 In development – repo &amp; demo coming soon.
+              </span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   );

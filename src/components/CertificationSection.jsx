@@ -1,3 +1,4 @@
+// src/components/CertificationsSection.jsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -24,13 +25,12 @@ const CERTS = [
     year: "2021",
     image: "/images/certifications/GUVI_Certification.png",
   },
-  // can add more here
 ];
 
 export default function CertificationsSection() {
   const [activeCert, setActiveCert] = useState(null);
 
-  // Close on ESC
+  // Close on ESC + lock scroll when modal is open
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") setActiveCert(null);
@@ -53,13 +53,7 @@ export default function CertificationsSection() {
     >
       <div className="certs-wrap">
         <h2>CERTIFICATIONS</h2>
-        <p
-          style={{
-            maxWidth: 700,
-            margin: "0 auto",
-            color: "var(--text-muted)",
-          }}
-        >
+        <p className="section-lead">
           A snapshot of a few certifications that shaped my learning journey.
         </p>
 
@@ -67,11 +61,11 @@ export default function CertificationsSection() {
           {CERTS.map((cert, idx) => (
             <article
               key={cert.id}
-              className="cert-card"
+              className="cert-card fade-in-up"
               style={{ "--stagger": `${90 * idx}ms` }}
               onClick={() => setActiveCert(cert)}
             >
-              <div className="cert-thumb tilt">
+              <div className="cert-thumb">
                 <img
                   src={cert.image}
                   alt={cert.title}
@@ -79,17 +73,8 @@ export default function CertificationsSection() {
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                     e.currentTarget.parentElement.innerHTML = `
-                      <div style="
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background: linear-gradient(135deg, var(--brand), var(--brand-light));
-                        color: #fff;
-                        font-weight: 600;
-                      ">
-                        <i class="fa-solid fa-certificate" style="font-size: 2.4rem; margin-right: 8px;"></i>
+                      <div class="cert-fallback">
+                        <i class="fa-solid fa-certificate cert-fallback-icon"></i>
                         <span>Certificate</span>
                       </div>
                     `;

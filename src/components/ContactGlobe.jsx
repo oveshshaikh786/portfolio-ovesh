@@ -54,7 +54,6 @@ export default function ContactGlobe() {
     []
   );
 
-  // Optional: animated "arrows" (arcs) radiating from Cleveland to each city
   const arcs = useMemo(() => {
     const cle = { lat: 41.4993, lng: -81.6944 };
     const targets = [
@@ -68,7 +67,7 @@ export default function ContactGlobe() {
       endLat: t.lat,
       endLng: t.lng,
       name: t.name,
-      // small variety so arcs don’t look identical
+
       arcAlt: 0.12 + i * 0.02,
       color: [
         "rgba(0,124,237,0.15)",
@@ -143,6 +142,14 @@ export default function ContactGlobe() {
     ).matches;
     controls.autoRotate = !prefersReduced;
     controls.autoRotateSpeed = 0.4;
+
+    // 👉 Centered, nice default point of view
+    if (g.pointOfView) {
+      g.pointOfView(
+        { lat: 20, lng: -40, altitude: 2.4 },
+        0 // no animation on first load
+      );
+    }
   }, [mounted, key]);
 
   if (!mounted) {

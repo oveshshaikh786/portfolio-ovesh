@@ -9,20 +9,21 @@ export default function ThemeToggle() {
   const handleClick = () => {
     setAnimating(true);
     setTimeout(() => setAnimating(false), 300);
-    toggle();
+    toggle(); // switch between "light" and "space"
   };
 
   return (
-    <button type="button" className="theme-toggle-btn" onClick={handleClick}>
+    <button
+      type="button"
+      className="theme-toggle-btn icon-only"
+      onClick={handleClick}
+      aria-label="Toggle theme"
+    >
       <i
-        className={`${
-          theme === "space" ? "fa-moon moon-glow" : "fa-sun sun-glow"
-        } fa-solid theme-icon ${animating ? "spin" : ""}`}
+        className={`fa-solid ${
+          theme === "space" ? "fa-moon" : "fa-sun"
+        } theme-icon ${animating ? "spin" : ""}`}
       ></i>
-
-      <span className="theme-toggle-text">
-        {theme === "space" ? "Space" : "Light"}
-      </span>
     </button>
   );
 }
