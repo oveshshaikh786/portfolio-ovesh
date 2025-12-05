@@ -63,7 +63,7 @@ export default function HomeHero() {
         <div className="home-hero-right">
           <div className="hero-photo-card">
             <Image
-              src="/images/main_photo_1.jpg"
+              src="/images/main_photo_98.jpg"
               alt="Ovesh Shaikh"
               fill
               priority
