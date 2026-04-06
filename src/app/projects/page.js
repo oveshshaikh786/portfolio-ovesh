@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main>
+    <>
       <ProjectsSection />
-    </main>
+    </>
   );
 }

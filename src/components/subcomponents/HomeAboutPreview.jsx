@@ -1,4 +1,4 @@
-// src/components/HomeAboutPreview.jsx
+// src/components/subcomponents/HomeAboutPreview.jsx
 export default function HomeAboutPreview() {
   return (
     <section id="home-about" className="home-section">
@@ -14,16 +14,16 @@ export default function HomeAboutPreview() {
         </div>
 
         <p className="home-section-description">
-          I&apos;m Ovesh Shaikh, a full-stack software developer who enjoys
-          turning rough ideas into clean, usable web experiences. I like working
-          end-to-end – from designing the UI and API contracts to actually
-          shipping and iterating on the product.
+          I&apos;m Ovesh Shaikh — a Software Engineer at PDDN Inc, building SaaS
+          products end-to-end with Java, Spring Boot, React, and Python. I like
+          owning a feature from API design all the way through to deployment and
+          iteration.
         </p>
 
         <p className="home-section-description">
-          Outside code, you&apos;ll usually find me watching sports, playing
-          games, or binge-ing an inspirational series and stealing ideas for new
-          side projects.
+          Outside code, you&apos;ll find me watching sports, playing games, or
+          binge-watching something inspirational and stealing ideas for the next
+          side project.
         </p>
       </div>
     </section>

@@ -1,47 +1,29 @@
-// src/components/Footer.jsx
 "use client";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer">
+    <footer className="footer">
       <div className="footer-inner">
-        {/* LEFT: Name + role + location */}
-        <div className="footer-section footer-section-main">
-          <h3 className="footer-name">Ovesh Shaikh</h3>
-          <p className="footer-role">Full-Stack Software Developer</p>
-          <p className="footer-location">United States</p>
-        </div>
+        <div className="footer-col footer-main">
+          <div className="footer-nameRow">
+            <span className="footer-mark">O</span>
+            <div>
+              <div className="footer-name">Ovesh Shaikh</div>
+              <div className="footer-sub">
+                Full-Stack Software Developer · United States
+              </div>
+            </div>
+          </div>
 
-        {/* MIDDLE: Quick links */}
-        <div className="footer-section footer-section-links">
-          <p className="footer-heading">Quick Links</p>
-          <ul className="footer-links">
-            <li>
-              <a href="/about">About</a>
-            </li>
-            <li>
-              <a href="/projects">Projects</a>
-            </li>
-            <li>
-              <a href="/experience">Experience</a>
-            </li>
-            <li>
-              <a href="/contact">Contact</a>
-            </li>
-          </ul>
-        </div>
-
-        {/* RIGHT: Social + email */}
-        <div className="footer-section footer-section-connect">
-          <p className="footer-heading">Connect</p>
           <div className="footer-social">
             <a
               href="https://github.com/oveshshaikh786"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
+              className="footer-iconBtn"
             >
               <i className="fa-brands fa-github" />
             </a>
@@ -50,21 +32,42 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
+              className="footer-iconBtn"
             >
               <i className="fa-brands fa-linkedin-in" />
             </a>
           </div>
-          <a
-            href="mailto:oveshshaikh786@gmail.com"
-            className="footer-email-link"
-          >
+        </div>
+
+        <div className="footer-col">
+          <div className="footer-heading">Quick Links</div>
+          <div className="footer-links">
+            <a href="/about">About</a>
+            <a href="/projects">Projects</a>
+            <a href="/experience">Experience</a>
+            <a href="/contact">Contact</a>
+          </div>
+        </div>
+
+        <div className="footer-col">
+          <div className="footer-heading">Contact</div>
+          <a href="mailto:oveshshaikh786@gmail.com" className="footer-email">
             oveshshaikh786@gmail.com
+          </a>
+          <a
+            href="/resume/Ovesh_Shaikh_Resume.pdf"
+            className="footer-resume"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa-regular fa-file-lines" />
+            <span>Resume</span>
           </a>
         </div>
       </div>
 
       <div className="footer-bottom">
-        © {year} <span>Ovesh Shaikh</span>. Built with Next.js &amp; React.
+        © {year} Ovesh Shaikh · Built with Next.js &amp; React
       </div>
     </footer>
   );

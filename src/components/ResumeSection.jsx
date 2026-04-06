@@ -4,8 +4,8 @@ export default function ResumeSection() {
     <section id="resume" className="section resume-section">
       <h2>RESUME SNAPSHOT</h2>
       <p>
-        A quick view of my education, core tech stack, and the impact I’ve had
-        across internships, projects, and leadership roles.
+        A quick view of my education, core tech stack, and the impact I&apos;ve
+        had across roles, projects, and production systems.
       </p>
 
       <div className="resume-actions">
@@ -15,53 +15,49 @@ export default function ResumeSection() {
           className="btn resume-download"
           aria-label="Download resume as PDF"
         >
-          <i className="fa-solid fa-download"></i> Download Resume
+          <i className="fa-solid fa-download" /> Download Resume
         </a>
-        <a
-          href="#contact"
-          className="btn btn-outline"
-          aria-label="Go to contact section"
-        >
-          <i className="fa-solid fa-envelope"></i> Get in Touch
+        <a href="/contact" className="btn btn-outline" aria-label="Contact me">
+          <i className="fa-solid fa-envelope" /> Get in Touch
         </a>
       </div>
 
       <div className="resume-grid">
-        {/* Education Card */}
+        {/* Education */}
         <article className="resume-card">
           <h3>🎓 Education</h3>
           <div className="resume-subtle">
             Cleveland State University · Cleveland, OH
           </div>
           <ul className="resume-bullets">
-            <li>Master of Science in Computer Science (Dec 2024)</li>
+            <li>Master of Science in Computer Science — Dec 2024</li>
             <li>
               Focus: Database Systems, Data Mining, Enterprise Data Warehousing,
-              Algorithms & Information Security
+              Algorithms &amp; Information Security
             </li>
             <li>
-              Streamlined student support operations in the Viking ID Card
-              Office, improving service efficiency and satisfaction.
+              Built production projects including Train Ticket Booking System,
+              Contoso Retail DW, and an Apriori Algorithm Flask app.
             </li>
           </ul>
         </article>
 
-        {/* Technical Proficiency Card */}
+        {/* Technical Proficiency */}
         <article className="resume-card">
           <h3>💻 Technical Proficiency</h3>
           <div className="resume-tags">
             <span>Java</span>
+            <span>Spring Boot</span>
             <span>Python</span>
             <span>JavaScript</span>
+            <span>TypeScript</span>
             <span>React.js</span>
             <span>Next.js</span>
             <span>Node.js</span>
             <span>Django</span>
-            <span>Spring Boot</span>
             <span>MySQL</span>
-            <span>SQL Server</span>
             <span>MongoDB</span>
-            <span>PostgreSQL</span>
+            <span>SQL Server</span>
             <span>AWS</span>
             <span>Docker</span>
             <span>Git</span>
@@ -69,82 +65,60 @@ export default function ResumeSection() {
           </div>
           <ul className="resume-bullets">
             <li>
-              Full-stack web development using React / Next.js, Node.js, and
-              Django.
+              Backend system design with Java/Spring Boot and REST API
+              architecture — currently in production at PDDN Inc.
             </li>
             <li>
-              RESTful API design, backend optimization, and database performance
-              tuning.
+              Full-stack development: React/Next.js frontend, Node.js/Django
+              backend, SQL and NoSQL data layers.
             </li>
             <li>
-              Strong foundation in OOP, data structures & algorithms, and Agile
-              development practices.
+              Strong foundation in OOP, SOLID principles, Docker, and Agile
+              development workflows.
             </li>
           </ul>
         </article>
 
-        {/* Impact & Metrics Card */}
+        {/* Impact & Metrics */}
         <article className="resume-card">
-          <h3>📈 Impact & Metrics</h3>
+          <h3>📈 Impact &amp; Metrics</h3>
           <div className="resume-metrics">
+            <div className="metric">
+              <div className="metric-num">10K+</div>
+              <div className="metric-label">Req / Day</div>
+            </div>
+            <div className="metric">
+              <div className="metric-num">&lt;200ms</div>
+              <div className="metric-label">API Response</div>
+            </div>
+            <div className="metric">
+              <div className="metric-num">30%</div>
+              <div className="metric-label">Fewer Bugs</div>
+            </div>
             <div className="metric">
               <div className="metric-num">25%</div>
               <div className="metric-label">Faster APIs</div>
             </div>
-            <div className="metric">
-              <div className="metric-num">15%</div>
-              <div className="metric-label">Conversion Lift</div>
-            </div>
-            <div className="metric">
-              <div className="metric-num">30%</div>
-              <div className="metric-label">Fewer Sync Errors</div>
-            </div>
-            <div className="metric">
-              <div className="metric-num">40%</div>
-              <div className="metric-label">Faster Onboarding</div>
-            </div>
           </div>
           <ul className="resume-bullets">
             <li>
-              Improved data retrieval speed by 25% with optimized Django REST
-              APIs at Green2Gold.
+              Train Ticket Booking System load-tested to handle 10K+ requests
+              per day at under 200ms response time.
             </li>
             <li>
-              Increased donor conversion by 15% through better UX and validation
-              in donation workflows.
+              Improved Django REST API speed by ~25% and backend reliability by
+              ~25% at Green2Gold.
             </li>
             <li>
-              Automated backend-to-frontend sync, reducing manual update errors
-              by 30%.
+              Reduced frontend defects by ~30% through structured PR reviews and
+              modular component patterns at ImageIO.
             </li>
             <li>
-              Reduced UI bugs by 60% and improved app performance by 20% through
-              modular React components and API/query optimization.
+              Reduced deployment time from 2 hours to 8 minutes using Docker
+              containerization.
             </li>
           </ul>
         </article>
-
-        {/* 
-        <article className="resume-card">
-          <h3>📜 Certifications & Learning</h3>
-          <div className="resume-subtle">Continuous Growth & Development</div>
-          <ul className="resume-bullets">
-            <li>
-              React – The Complete Guide (Hooks, React Router, Redux) –
-              Academind
-            </li>
-            <li>Face Recognition using Python – GUVI · AI-For-India Event</li>
-            <li>Android App Development Workshop – Kyrion Technologies</li>
-            <li>
-              Amazon Junior Software Developer Professional Certificate – In
-              Progress
-            </li>
-            <li>
-              Actively sharpening Data Structures & Algorithms and System Design
-              via LeetCode & real-world projects.
-            </li>
-          </ul>
-        </article> */}
       </div>
     </section>
   );

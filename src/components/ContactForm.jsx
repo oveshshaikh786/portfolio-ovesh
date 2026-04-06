@@ -4,7 +4,6 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
-// dynamic import prevents SSR issues with WebGL
 const ContactGlobe = dynamic(() => import("../components/ContactGlobe"), {
   ssr: false,
 });
@@ -12,10 +11,12 @@ const ContactGlobe = dynamic(() => import("../components/ContactGlobe"), {
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
+  const [sending, setSending] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setStatus("Sending...");
+    setSending(true);
+    setStatus("");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -24,13 +25,15 @@ export default function ContactForm() {
       });
       const data = await res.json();
       if (data.success) {
-        setStatus("Message sent! ✅");
+        setStatus("success");
         setForm({ name: "", email: "", message: "" });
       } else {
-        setStatus("There was an error. Please try again.");
+        setStatus("error");
       }
     } catch {
-      setStatus("There was an error. Please try again.");
+      setStatus("error");
+    } finally {
+      setSending(false);
     }
   }
 
@@ -45,14 +48,20 @@ export default function ContactForm() {
         </header>
 
         <p className="home-section-description">
-          Feel free to reach out via this form or through my social channels. I
-          usually respond within a day.
+          Open to full-time roles, collaborations, and interesting projects.
+          Fill out the form or reach me directly at{" "}
+          <a
+            href="mailto:oveshshaikh814@gmail.com"
+            style={{ color: "var(--brand-2)", fontWeight: 700 }}
+          >
+            oveshshaikh814@gmail.com
+          </a>
+          . I usually respond within a day.
         </p>
 
-        {/* Globe sits outside the form for layout/accessibility */}
         <ContactGlobe />
 
-        <form id="contactForm" onSubmit={handleSubmit}>
+        <form id="contactForm" onSubmit={handleSubmit} noValidate>
           <input
             type="text"
             name="name"
@@ -60,6 +69,7 @@ export default function ContactForm() {
             required
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
+            autoComplete="name"
           />
           <input
             type="email"
@@ -68,6 +78,7 @@ export default function ContactForm() {
             required
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+            autoComplete="email"
           />
           <textarea
             name="message"
@@ -77,10 +88,45 @@ export default function ContactForm() {
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
           />
-          <button type="submit" className="btn">
-            Send Message
+
+          <button type="submit" className="btn btn-primary" disabled={sending}>
+            {sending ? (
+              <>
+                <i className="fa-solid fa-circle-notch fa-spin" />
+                Sending...
+              </>
+            ) : (
+              <>
+                <i className="fa-solid fa-paper-plane" />
+                Send Message
+              </>
+            )}
           </button>
-          <div style={{ marginTop: 8 }}>{status}</div>
+
+          {status === "success" && (
+            <p
+              style={{
+                color: "#86efac",
+                fontWeight: 700,
+                fontSize: "0.9rem",
+                marginTop: 6,
+              }}
+            >
+              ✅ Message sent! I&apos;ll get back to you soon.
+            </p>
+          )}
+          {status === "error" && (
+            <p
+              style={{
+                color: "#fca5a5",
+                fontWeight: 700,
+                fontSize: "0.9rem",
+                marginTop: 6,
+              }}
+            >
+              ❌ Something went wrong. Please try again or email me directly.
+            </p>
+          )}
         </form>
       </div>
     </section>

@@ -1,26 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrollPos, setScrollPos] = useState(0);
   const progressRef = useRef(null);
+  const pathname = usePathname();
 
-  // ✅ Now these are PAGES, not section IDs
-  const links = [
-    { href: "/", label: "HOME" },
-    { href: "/experience", label: "EXPERIENCE" }, // ⬅️ renamed from WORK
-    { href: "/projects", label: "PROJECTS" }, // ⬅️ new
-    { href: "/about", label: "ABOUT" },
-    { href: "/contact", label: "CONTACT" },
-  ];
+  const links = useMemo(
+    () => [
+      { href: "/", label: "HOME" },
+      { href: "/experience", label: "EXPERIENCE" },
+      { href: "/projects", label: "PROJECTS" },
+      { href: "/about", label: "ABOUT" },
+      { href: "/contact", label: "CONTACT" },
+    ],
+    [],
+  );
 
-  /* ------------------------------
-   * Drawer: lock/unlock body scroll
-   * ------------------------------ */
+  // Lock body scroll on mobile drawer
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -43,22 +45,17 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, scrollPos]);
 
-  /* ----------------------------------------
-   * Simple page scroll progress
-   * ---------------------------------------- */
+  // Scroll progress
   useEffect(() => {
     const updateProgress = () => {
       if (!progressRef.current) return;
-
       const doc = document.documentElement;
       const scrollTop = window.pageYOffset || doc.scrollTop;
       const scrollHeight = doc.scrollHeight - window.innerHeight;
-
       const pct =
         scrollHeight > 0
           ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100))
           : 0;
-
       progressRef.current.style.width = `${pct}%`;
     };
 
@@ -72,37 +69,40 @@ export default function Navbar() {
     };
   }, []);
 
+  const isActive = (href) => {
+    if (href === "/") return pathname === "/";
+    return pathname?.startsWith(href);
+  };
+
   return (
     <>
-      {/* Top progress bar */}
-      <div className="scroll-progress" ref={progressRef} />
+      <div className="nav-progress" ref={progressRef} />
 
-      <header className="site-header">
-        <div className="logo">
-          <span className="brand-dot">O</span>
-          <div className="logo-text">Ovesh Shaikh</div>
-        </div>
+      <header className="nav">
+        <div className="nav-inner">
+          <Link href="/" className="nav-brand" onClick={() => setOpen(false)}>
+            <span className="nav-brandMark">O</span>
+            <span className="nav-brandText">Ovesh Shaikh</span>
+          </Link>
 
-        <nav aria-label="Primary navigation" role="navigation">
-          {/* Desktop + drawer links */}
-          <ul className={`navlinks ${open ? "open" : ""}`} id="primary-nav">
+          <nav className="nav-links" aria-label="Primary">
             {links.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} onClick={() => setOpen(false)}>
-                  {l.label}
-                </Link>
-              </li>
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`nav-link ${isActive(l.href) ? "is-active" : ""}`}
+              >
+                {l.label}
+              </Link>
             ))}
-          </ul>
+          </nav>
 
-          {/* Right-side controls */}
           <div className="nav-actions">
             <ThemeToggle />
 
-            {/* Resume button now opens PDF directly */}
             <a
               href="/resume/Ovesh_Shaikh_Resume.pdf"
-              className="nav-resume-btn"
+              className="nav-cta"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -110,18 +110,64 @@ export default function Navbar() {
             </a>
 
             <button
-              className={`togglebtn ${open ? "is-open" : ""}`}
+              className={`nav-burger ${open ? "is-open" : ""}`}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              aria-controls="primary-nav"
+              aria-controls="nav-drawer"
               onClick={() => setOpen((v) => !v)}
             >
               <span />
               <span />
-              <span />
             </button>
           </div>
-        </nav>
+        </div>
+
+        {/* Mobile Drawer */}
+        <div
+          id="nav-drawer"
+          className={`nav-drawer ${open ? "open" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+        >
+          <div className="nav-drawerTop">
+            <div className="nav-drawerTitle">Menu</div>
+            <button
+              className="nav-drawerClose"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+            >
+              <i className="fa-solid fa-xmark" />
+            </button>
+          </div>
+
+          <div className="nav-drawerLinks">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`nav-drawerLink ${isActive(l.href) ? "is-active" : ""}`}
+              >
+                {l.label}
+                <i className="fa-solid fa-arrow-right-long" />
+              </Link>
+            ))}
+          </div>
+
+          <div className="nav-drawerFooter">
+            <a
+              href="/resume/Ovesh_Shaikh_Resume.pdf"
+              className="nav-drawerCta"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+            >
+              <i className="fa-regular fa-file-lines" />
+              <span>Open Resume</span>
+            </a>
+          </div>
+        </div>
 
         {open && (
           <button

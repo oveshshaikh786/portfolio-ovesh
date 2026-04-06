@@ -7,12 +7,12 @@ import HomeAboutPreview from "@/components/subcomponents/HomeAboutPreview";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <HomeHeroSection />
       <HomeSkillsPreview />
       <HomeExperiencePreview />
       <HomeProjectsPreview />
       <HomeAboutPreview />
-    </main>
+    </>
   );
 }

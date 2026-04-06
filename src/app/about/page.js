@@ -8,11 +8,11 @@ import CurrentFocusSection from "../../components/CurrentFocusSection";
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
       <AboutSection />
       <SkillsSection />
       <CertificationSection />
       <CurrentFocusSection />
-    </main>
+    </>
   );
 }

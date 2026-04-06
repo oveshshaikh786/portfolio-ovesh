@@ -28,27 +28,63 @@ export async function GET(req) {
     if (!username)
       return NextResponse.json(
         { success: false, message: "Missing ?username" },
-        { status: 400 }
+        { status: 400 },
       );
+
+    // Step 1: get a CSRF token from LeetCode
+    let csrfToken = "";
+    let cookieHeader = "";
+    try {
+      const csrfRes = await fetch("https://leetcode.com/", {
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        },
+        cache: "no-store",
+      });
+      const setCookie = csrfRes.headers.get("set-cookie") || "";
+      const match = setCookie.match(/csrftoken=([^;]+)/);
+      if (match) {
+        csrfToken = match[1];
+        cookieHeader = `csrftoken=${csrfToken}`;
+      }
+    } catch {
+      // proceed without CSRF token — may still work
+    }
+
+    const headers = {
+      "content-type": "application/json",
+      referer: "https://leetcode.com/",
+      origin: "https://leetcode.com",
+      "user-agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    };
+
+    if (csrfToken) {
+      headers["x-csrftoken"] = csrfToken;
+      headers["cookie"] = cookieHeader;
+    }
 
     const res = await fetch("https://leetcode.com/graphql", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        referer: "https://leetcode.com/",
-        "user-agent":
-          "Mozilla/5.0 (PortfolioApp/1.0; +https://oveshshaikh.dev)",
-      },
+      headers,
       body: JSON.stringify({ query: QUERY, variables: { username } }),
       cache: "no-store",
     });
 
-    if (!res.ok) throw new Error("LeetCode API error");
+    if (!res.ok) {
+      throw new Error(`LeetCode responded with status ${res.status}`);
+    }
 
     const data = await res.json();
+
+    if (!data.data?.matchedUser) {
+      throw new Error("User not found or LeetCode blocked the request");
+    }
+
     const all = toMap(data.data.allQuestionsCount);
     const solved = toMap(
-      data.data.matchedUser.submitStatsGlobal.acSubmissionNum
+      data.data.matchedUser.submitStatsGlobal.acSubmissionNum,
     );
 
     const totalQuestions =
@@ -72,9 +108,15 @@ export async function GET(req) {
       reputation: data.data.matchedUser.profile.reputation,
     });
   } catch (err) {
+    // Return a structured error so the frontend can show a graceful fallback
+    // instead of a broken loading spinner
     return NextResponse.json(
-      { success: false, message: err.message },
-      { status: 500 }
+      {
+        success: false,
+        message: err.message,
+        fallback: true,
+      },
+      { status: 500 },
     );
   }
 }

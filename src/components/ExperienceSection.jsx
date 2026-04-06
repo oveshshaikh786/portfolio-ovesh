@@ -7,17 +7,47 @@ export default function ExperienceSection() {
           <h2 className="experience-heading">Professional Experience</h2>
 
           <div className="experience-timeline">
-            {/* 1. Green2Gold */}
+            {/* 1. PDDN Inc — Current Role */}
+            <article className="experience-item">
+              <h3>Software Engineer – PDDN Inc</h3>
+              <div className="experience-meta">
+                Jan 2026 – Present · Hybrid · Fremont, CA
+              </div>
+              <ul className="experience-points">
+                <li>
+                  Building and maintaining SaaS web applications using{" "}
+                  <strong>React, Java, Python, and MySQL</strong>, contributing
+                  to core product features across the full stack.
+                </li>
+                <li>
+                  Designing and consuming <strong>REST APIs</strong> with MySQL
+                  for data persistence, improving reliability and modularity of
+                  backend services.
+                </li>
+                <li>
+                  Integrating <strong>AI/LLM-based features</strong> into
+                  application workflows, expanding product capabilities with
+                  modern AI tooling.
+                </li>
+                <li>
+                  Collaborating with senior engineers through code reviews and
+                  Agile sprints, improving code quality through OOP principles
+                  and modular design.
+                </li>
+              </ul>
+            </article>
+
+            {/* 2. Green2Gold */}
             <article className="experience-item">
               <h3>Software Engineer Intern – Green2Gold</h3>
               <div className="experience-meta">
-                Mar 2025 – Present · Remote · Simi Valley, CA
+                Mar 2025 – Dec 2025 · Remote · Simi Valley, CA
               </div>
               <ul className="experience-points">
                 <li>
                   Developed scalable web components using React.js and Tailwind
-                  CSS, boosting front-end performance and UI consistency by
-                  <strong> ~20%</strong>.
+                  CSS, boosting front-end performance and UI consistency by{" "}
+                  <strong>~20%</strong>.
                 </li>
                 <li>
                   Built and maintained secure backend services with Django,
@@ -26,39 +56,12 @@ export default function ExperienceSection() {
                 </li>
                 <li>
                   Integrated Zeffy payment APIs and aligned flows with ERP-style
-                  nonprofit operations, helping reduce manual steps by
-                  <strong> ~15%</strong>.
+                  nonprofit operations, helping reduce manual steps by{" "}
+                  <strong>~15%</strong>.
                 </li>
                 <li>
                   Participated in full-stack architecture discussions and agile
                   sprints to keep product work aligned with business goals.
-                </li>
-              </ul>
-            </article>
-
-            {/* 2. CSU – Viking Card Office */}
-            <article className="experience-item">
-              <h3>Graduate Student Assistant – Viking Card Office</h3>
-              <div className="experience-meta">
-                Aug 2022 – May 2024 · On-site · Cleveland, OH
-              </div>
-              <ul className="experience-points">
-                <li>
-                  Issued ID cards and handled student / staff requests,
-                  improving processing efficiency by <strong>~20%</strong> while
-                  maintaining data confidentiality.
-                </li>
-                <li>
-                  Managed front desk and helpline operations with
-                  <strong> ~95%</strong> accuracy in daily logs and records.
-                </li>
-                <li>
-                  Diagnosed and resolved computer and printer issues, reducing
-                  downtime for card services by <strong>~30%</strong>.
-                </li>
-                <li>
-                  Supported special projects and process tweaks that improved
-                  office workflow efficiency by <strong>~15%</strong>.
                 </li>
               </ul>
             </article>

@@ -3,8 +3,7 @@
 import ThemeProvider from "../components/ThemeProvider";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ScrollFeatures from "../components/ScrollFeatures";
-import "./style.css";
+import "./globals.css";
 
 export const metadata = {
   title: {
@@ -28,7 +27,6 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          <ScrollFeatures />
           <div className="app-shell">
             <Navbar />
             <main>{children}</main>

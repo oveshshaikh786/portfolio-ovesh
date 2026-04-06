@@ -15,7 +15,7 @@ export default function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme-toggle-btn icon-only"
+      className="theme-toggle"
       onClick={handleClick}
       aria-label="Toggle theme"
     >
